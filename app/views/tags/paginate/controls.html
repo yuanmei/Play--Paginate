@@ -4,8 +4,12 @@ if (_items != null) {
   if (_items instanceof List && !(_items instanceof play.modules.paginate.Paginator)) {
     _items = new play.modules.paginate.ValuePaginator(_items); 
   }
+  //如果数量到一页的时候才显示分页，否则不显示
+  if(_items.size()>=20){
+  
 }%
 	#{include 'paginate/Controls.html'/}
 %{
+  }
 } 
 }%

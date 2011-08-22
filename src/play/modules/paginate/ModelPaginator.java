@@ -18,28 +18,74 @@
  */
 package play.modules.paginate;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import play.db.jpa.Model;
+import play.modules.paginate.locator.JPAIndexedRecordLocator;
 
 public class ModelPaginator<T extends Model> extends JPAPaginator<Long, T> {
     private static final long serialVersionUID = -2064492602195638937L;
 
-    public ModelPaginator(Class<T> typeToken) {
-        super(typeToken);
+    public ModelPaginator() {
+        super();
     }
-    
+
     public ModelPaginator(Class<T> typeToken, List<Long> keys) {
         super(typeToken, keys);
     }
 
+    @Deprecated
+    public ModelPaginator(Class<T> typeToken, long rowCount, IndexedRecordLocator<Long, T> locator) {
+        super(typeToken, rowCount, locator);
+    }
+
+    @Deprecated
     public ModelPaginator(Class<T> typeToken, String filter, Object... params) {
         super(typeToken, filter, params);
     }
-    
-    public ModelPaginator<T> orderBy(String orderByClause) {
-        jpaStrategy().setOrderBy(orderByClause);
-        return this;
+
+    @Deprecated
+    public ModelPaginator(Class<T> typeToken, long rowCount) {
+        super(typeToken, rowCount);
     }
 
+    public ModelPaginator(List<T> values) {
+        super(values);
+    }
+
+    public ModelPaginator(Class<T> typeToken, IndexedRecordLocator<Long, T> locator) {
+        super(typeToken, locator);
+    }
+
+    public ModelPaginator(JPAIndexedRecordLocator<Long, T> locator) {
+        super(locator);
+    }
+
+    @SuppressWarnings("deprecation")
+    public ModelPaginator(Class<T> typeToken) {
+        super(typeToken, count(typeToken));
+    }
+
+    private static <T extends Model> long count(Class<T> typeToken) {
+        Method method;
+        Long count = new Long(0);
+        try {
+            method = typeToken.getMethod("count");
+            count = (Long) method.invoke(typeToken);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (SecurityException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+        return count.longValue();
+
+    }
 }

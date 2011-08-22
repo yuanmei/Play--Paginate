@@ -4,10 +4,10 @@
 
 #play-paginate.name=play-paginate
 
-play-paginate.first=&laquo;&nbsp;First
-play-paginate.prev=&lsaquo;&nbsp;Previous
-play-paginate.next=Next&nbsp;&rsaquo;
-play-paginate.last=Last&nbsp;&raquo;
+play-paginate.first=首页
+play-paginate.prev=上一页
+play-paginate.next=下一页
+play-paginate.last=尾页
 
 play-paginate.summary.display=Displaying rows
 play-paginate.summary.to=to

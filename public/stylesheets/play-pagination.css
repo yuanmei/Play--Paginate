@@ -6,18 +6,18 @@ div.pagination-container {
 }
 
 ul.pagination {
-	border: 0;
+	border: 0px;
 	margin: 0;
 	padding: 0;
 	float: left;
 }
 
 .pagination li {
-	border: 0;
+	border: 0px;
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	border: solid 1px #1E1E1E;
+	border: solid 0px #1E1E1E;
 	float: left;
 	margin-right : 2px;
 }
@@ -33,6 +33,7 @@ ul.pagination {
 .pagination .next a, .pagination .previous a, .pagination .first a, .pagination .last a {
 	font-weight: bold;
 	color: #00000;
+	border:0px;
 }
 
 .pagination .active {

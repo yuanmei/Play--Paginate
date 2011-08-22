@@ -20,26 +20,26 @@ package play.modules.paginate;
 
 import java.util.List;
 
-public class MappedPaginator<K,V> extends Paginator<K, V> {
-	private static final long serialVersionUID = 9009784743373942624L;
+public class IndexedPaginator<K,V> extends Paginator<K, V> {
+	private static final long serialVersionUID = 8888238998297494494L;
 	
-	private KeyedRecordLocator<K, V> locator;
+	private IndexedRecordLocator<K, V> locator;
 	
-	public MappedPaginator(KeyedRecordLocator<K, V> locator, Class<V> typeToken, List<K> keys) {
+	public IndexedPaginator(IndexedRecordLocator<K, V> locator, Class<V> typeToken, List<K> keys) {
 		super(typeToken, keys);
 		this.locator = locator;
 	}
 
-	protected MappedPaginator() {}
+	protected IndexedPaginator() {}
 	
-	@Override
-	protected KeyedRecordLocator<K, V> getKeyedRecordLocator() {
-		return locator;
-	}
-
 	// unused
 	@Override
-	protected IndexedRecordLocator<K, V> getIndexedRecordLocator() {
+	protected KeyedRecordLocator<K, V> getKeyedRecordLocator() {
 		return null;
+	}
+
+	@Override
+	protected IndexedRecordLocator<K, V> getIndexedRecordLocator() {
+		return locator;
 	}
 }

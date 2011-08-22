@@ -16,30 +16,31 @@
  *  limitations under the License.
  *
  */
-package play.modules.paginate;
+package play.modules.paginate.locator;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class MappedPaginator<K,V> extends Paginator<K, V> {
-	private static final long serialVersionUID = 9009784743373942624L;
+import play.modules.paginate.KeyedRecordLocator;
+
+public class MappedKeyedRecordLocator<K,V> implements KeyedRecordLocator<K,V>, Serializable {
+	private static final long serialVersionUID = 4224849298526331518L;
 	
-	private KeyedRecordLocator<K, V> locator;
+	private final Map<K,V> store;
 	
-	public MappedPaginator(KeyedRecordLocator<K, V> locator, Class<V> typeToken, List<K> keys) {
-		super(typeToken, keys);
-		this.locator = locator;
+	public MappedKeyedRecordLocator(Map<K,V> store) {
+		this.store = store;
 	}
-
-	protected MappedPaginator() {}
 	
 	@Override
-	protected KeyedRecordLocator<K, V> getKeyedRecordLocator() {
-		return locator;
+	public List<V> findByKey(List<K> input) {
+		List<V> output = new ArrayList<V>();
+		for (K key : input) {
+			output.add(store.get(key));
+		}
+		return output;
 	}
 
-	// unused
-	@Override
-	protected IndexedRecordLocator<K, V> getIndexedRecordLocator() {
-		return null;
-	}
 }
